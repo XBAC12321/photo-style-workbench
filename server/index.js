@@ -34,7 +34,7 @@ app.post("/api/style-image", upload.single("image"), async (req, res) => {
       return res.status(400).json({ error: "只支持 JPG、PNG、WebP 图片。" });
     }
 
-    const styleId = String(req.body.styleId || "jp-film");
+    const styleId = String(req.body.styleId || "shonen-jump");
     const style = getStylePreset(styleId);
     if (!style) {
       return res.status(400).json({ error: `未知风格：${styleId}` });
@@ -115,17 +115,17 @@ function buildPrompt({ style, strength, preserveIdentity, customPrompt }) {
     preserveIdentity >= 75
       ? "Strictly preserve identity, face, pose, outfit, clothing, composition, camera angle, and scene layout."
       : preserveIdentity >= 45
-        ? "Preserve identity and main composition while allowing moderate lighting, texture, and color changes."
-        : "Preserve the main subject and recognizable identity while allowing a more visible aesthetic transformation.";
+        ? "Preserve identity and main composition while allowing moderate manga stylization."
+        : "Preserve the main subject and recognizable identity while allowing a stronger manga transformation.";
 
   return [
-    "Edit the uploaded photo into a polished photo-styling result for a fixed style workflow.",
+    "Edit the uploaded photo into a polished Japanese manga / anime-style image for a fixed LifeManga-like workflow.",
     preserveRule,
     `Selected style: ${style.name}.`,
     `Apply this style with ${styleIntensity} intensity: ${style.prompt}`,
     `Reference direction: ${style.referenceDirection}`,
-    "Keep the output realistic unless the selected style explicitly asks for painterly rendering.",
-    "Do not add text, watermark, logo, unrelated objects, extra people, or a different face.",
+    "The result should feel like a finished manga page or manga key visual, not a generic photo filter.",
+    "Keep the subject recognizable. Do not add watermark, logo, unrelated objects, extra people, or a different face.",
     customPrompt ? `User extra direction: ${customPrompt}` : ""
   ]
     .filter(Boolean)
