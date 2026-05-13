@@ -1,0 +1,19 @@
+{
+  "name": "照片风格工作台",
+  "short_name": "风格工作台",
+  "description": "固定风格工作流照片生成工具",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f7f2",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
